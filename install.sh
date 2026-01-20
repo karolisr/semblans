@@ -50,12 +50,6 @@ fi
 
 echo "Now installing required libraries"
 
-#
-# ToDo: Miles, boost failed to build for me because of this:
-#       "--with-python=python3"    <-- with Python 3.12 as my default
-#                                      Python install.
-#       "--with-python=python3.10" <-- worked fine.
-#
 # Install boost libraries
 if  [ ! -f ./lib/libboost_filesystem.a ] ||
     [ ! -f ./lib/libboost_regex.a ] ||
@@ -65,7 +59,7 @@ if  [ ! -f ./lib/libboost_filesystem.a ] ||
     wget -q https://archives.boost.io/release/1.81.0/source/boost_1_81_0.tar.gz
     tar -xf boost_1_81_0.tar.gz
     cd boost_1_81_0 || return   1
-    ./bootstrap.sh --prefix=../ --with-python=python3 \
+    ./bootstrap.sh --prefix=../ --with-python=python3.10 \
                    --with-libraries=filesystem,iostreams,locale,regex,system
     ./b2 install cxxflags="-std=c++11" link=static
     mv LICENSE_1_0.txt ../include/boost/
